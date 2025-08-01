@@ -170,36 +170,38 @@ class LLMNeedleHaystackTester:
         print(f"layer number: {self.layer_num}, head number {self.head_num}")
         if "Qwen3" in self.model_version:
             self.model_to_test = Qwen3ForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2"
                 ).eval()
         elif "Qwen2.5" in self.model_version or "Qwen2-5" in self.model_version:
             self.model_to_test = Qwen25ForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2"
                 ).eval()
         elif "Qwen2" in self.model_version:
             self.model_to_test = Qwen2ForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2"
                 ).eval()
-        elif "OLMo2" in self.model_version:
+        elif "olmo2" in self.model_version:
             self.model_to_test = Olmo2ForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2"
                 ).eval()
         elif "Mixtral" in self.model_version:
             self.model_to_test = MixtralForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2",trust_remote_code=True,
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2",trust_remote_code=True,
                 ).eval()
         elif "Mistral" in self.model_version:
             self.model_to_test = MistralForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2",trust_remote_code=True,
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2",trust_remote_code=True,
                 ).eval()
         elif "Phi3" in self.model_version:
             self.model_to_test = Phi3ForCausalLM.from_pretrained(
-                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2",trust_remote_code=True,
+                    model_name,torch_dtype="auto",device_map='auto',attn_implementation="flash_attention_2",trust_remote_code=True,
                 ).eval()
-        else:
+        elif "llama" in self.model_version:
             self.model_to_test = LlamaForCausalLM.from_pretrained(model_name,
-                use_flash_attention_2="flash_attention_2", torch_dtype=torch.bfloat16,device_map='auto').eval()
-            
+                attn_implementation="flash_attention_2", torch_dtype=torch.bfloat16,device_map='auto').eval()
+        else:
+            raise ValueError(f"Don't recognize model version {self.model_version}!")
+
         if 'llama-2-7b-80k' in self.model_version:
             scaling_factor = 10
             reset_rope(self.model_to_test, model_max_train_len=81920, scaling_factor=scaling_factor)
