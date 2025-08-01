@@ -42,6 +42,9 @@ import sys
 sys.path.append("./faiss_attn/")
 from source.modeling_llama import LlamaForCausalLM
 from source.modeling_qwen2 import Qwen2ForCausalLM
+from source.modeling_qwen2_5 import Qwen2ForCausalLM as Qwen25ForCausalLM
+from source.modeling_qwen3 import Qwen3ForCausalLM
+from source.modeling_olmo2 import Olmo2ForCausalLM
 from source.modeling_mixtral import MixtralForCausalLM
 from source.modeling_mistral import MistralForCausalLM
 from source.modeling_phi3 import Phi3ForCausalLM
@@ -165,8 +168,20 @@ class LLMNeedleHaystackTester:
         config = AutoConfig.from_pretrained(model_name)
         self.layer_num, self.head_num = config.num_hidden_layers, config.num_attention_heads
         print(f"layer number: {self.layer_num}, head number {self.head_num}")
-        if "Qwen" in self.model_version:
+        if "Qwen3" in self.model_version:
+            self.model_to_test = Qwen3ForCausalLM.from_pretrained(
+                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                ).eval()
+        elif "Qwen2.5" in self.model_version or "Qwen2-5" in self.model_version:
+            self.model_to_test = Qwen25ForCausalLM.from_pretrained(
+                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                ).eval()
+        elif "Qwen2" in self.model_version:
             self.model_to_test = Qwen2ForCausalLM.from_pretrained(
+                    model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
+                ).eval()
+        elif "OLMo2" in self.model_version:
+            self.model_to_test = Olmo2ForCausalLM.from_pretrained(
                     model_name,torch_dtype="auto",device_map='auto',use_flash_attention_2="flash_attention_2"
                 ).eval()
         elif "Mixtral" in self.model_version:
