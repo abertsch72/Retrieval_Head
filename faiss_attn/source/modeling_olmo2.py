@@ -270,7 +270,8 @@ class Olmo2Attention(nn.Module):
         if not output_attentions:
             attn_weights = None
 
-        return attn_output, attn_weights, past_key_value
+        # Return None for inspect to match Olmo2FlashAttention2's return signature
+        return attn_output, attn_weights, past_key_value, None
 
 
 class Olmo2FlashAttention2(Olmo2Attention):
