@@ -1,0 +1,9 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+libdir=/weka/oe-training-default/amandab/Retrieval_Head/env/lib
+includedir=/weka/oe-training-default/amandab/Retrieval_Head/env/include
+
+Name: SLEEF
+Description: SIMD Library for Evaluating Elementary Functions, vectorized libm and DFT
+Version: 3.5.1
+Cflags: -I${includedir}
+Libs: -L${libdir} -lsleef

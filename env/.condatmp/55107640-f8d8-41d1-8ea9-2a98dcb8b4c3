@@ -1,0 +1,16 @@
+#libevent pkg-config source file
+
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+exec_prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+libdir=/weka/oe-training-default/amandab/Retrieval_Head/env/lib
+includedir=/weka/oe-training-default/amandab/Retrieval_Head/env/include
+
+Name: libevent_pthreads
+Description: libevent_pthreads adds pthreads-based threading support to libevent
+Version: 2.1.12
+Requires: libevent
+Conflicts:
+Libs: -L${libdir} -levent_pthreads
+Libs.private:  
+Cflags: -I${includedir} 
+

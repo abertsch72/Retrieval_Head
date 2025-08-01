@@ -1,0 +1,7 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+includedir=${prefix}/include
+ 
+Name: DRI3Proto
+Description: DRI3 extension headers
+Version: 1.4
+Cflags: -I${includedir}

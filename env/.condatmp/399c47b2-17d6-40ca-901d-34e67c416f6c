@@ -1,0 +1,7 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+includedir=${prefix}/include
+
+Name: DamageProto
+Description: Damage extension headers
+Version: 1.2.1
+Cflags: -I${includedir}

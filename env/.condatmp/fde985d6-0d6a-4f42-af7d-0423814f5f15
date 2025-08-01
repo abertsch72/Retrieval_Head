@@ -1,0 +1,13 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+exec_prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+libdir=/weka/oe-training-default/amandab/Retrieval_Head/env/lib
+sharedlibdir=/weka/oe-training-default/amandab/Retrieval_Head/env/lib
+includedir=/weka/oe-training-default/amandab/Retrieval_Head/env/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

@@ -1,0 +1,7 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+includedir=${prefix}/include
+
+Name: XwaylandProto
+Description: Xwayland extension headers
+Version: 1.0
+Cflags: -I${includedir}

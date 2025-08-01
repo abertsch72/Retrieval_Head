@@ -1,0 +1,7 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+includedir=${prefix}/include
+ 
+Name: RecordProto
+Description: Record extension headers
+Version: 1.14.2
+Cflags: -I${includedir}

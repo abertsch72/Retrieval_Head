@@ -1,0 +1,11 @@
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+exec_prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+libdir=/weka/oe-training-default/amandab/Retrieval_Head/env/lib
+includedir=/weka/oe-training-default/amandab/Retrieval_Head/env/include
+
+Name: uuid
+Description: Universally unique id library
+Version: 2.32.1
+Requires:
+Cflags: -I${includedir}/uuid
+Libs: -L${libdir} -luuid

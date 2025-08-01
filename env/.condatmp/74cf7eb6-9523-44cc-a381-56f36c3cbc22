@@ -1,0 +1,16 @@
+#libevent pkg-config source file
+
+prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+exec_prefix=/weka/oe-training-default/amandab/Retrieval_Head/env
+libdir=/weka/oe-training-default/amandab/Retrieval_Head/env/lib
+includedir=/weka/oe-training-default/amandab/Retrieval_Head/env/include
+
+Name: libevent_openssl
+Description: libevent_openssl adds openssl-based TLS support to libevent
+Version: 2.1.12
+Requires: libevent
+Conflicts:
+Libs: -L${libdir} -levent_openssl
+Libs.private:   -L/weka/oe-training-default/amandab/Retrieval_Head/env/lib/libssl.so -L/weka/oe-training-default/amandab/Retrieval_Head/env/lib/libcrypto.so
+Cflags: -I${includedir} 
+
