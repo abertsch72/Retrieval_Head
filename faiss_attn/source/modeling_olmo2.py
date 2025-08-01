@@ -177,10 +177,12 @@ class Olmo2Attention(nn.Module):
                 f" and `num_heads`: {self.num_heads})."
             )
 
-        self.q_proj = nn.Linear(self.hidden_size, self.num_heads * self.head_dim, bias=config.attention_bias)
-        self.k_proj = nn.Linear(self.hidden_size, self.num_key_value_heads * self.head_dim, bias=config.attention_bias)
-        self.v_proj = nn.Linear(self.hidden_size, self.num_key_value_heads * self.head_dim, bias=config.attention_bias)
-        self.o_proj = nn.Linear(self.num_heads * self.head_dim, self.hidden_size, bias=config.attention_bias)
+        # Check if attention_bias exists in config, otherwise default to True
+        attention_bias = getattr(config, "attention_bias", True)
+        self.q_proj = nn.Linear(self.hidden_size, self.num_heads * self.head_dim, bias=attention_bias)
+        self.k_proj = nn.Linear(self.hidden_size, self.num_key_value_heads * self.head_dim, bias=attention_bias)
+        self.v_proj = nn.Linear(self.hidden_size, self.num_key_value_heads * self.head_dim, bias=attention_bias)
+        self.o_proj = nn.Linear(self.num_heads * self.head_dim, self.hidden_size, bias=attention_bias)
         self.rotary_emb = Olmo2RotaryEmbedding(
             self.head_dim,
             max_position_embeddings=self.max_position_embeddings,
@@ -598,9 +600,11 @@ class Olmo2MLP(nn.Module):
         self.config = config
         self.hidden_size = config.hidden_size
         self.intermediate_size = config.intermediate_size
-        self.gate_proj = nn.Linear(self.hidden_size, self.intermediate_size, bias=config.mlp_bias)
-        self.up_proj = nn.Linear(self.hidden_size, self.intermediate_size, bias=config.mlp_bias)
-        self.down_proj = nn.Linear(self.intermediate_size, self.hidden_size, bias=config.mlp_bias)
+        # Check if mlp_bias exists in config, otherwise default to True
+        mlp_bias = getattr(config, "mlp_bias", True)
+        self.gate_proj = nn.Linear(self.hidden_size, self.intermediate_size, bias=mlp_bias)
+        self.up_proj = nn.Linear(self.hidden_size, self.intermediate_size, bias=mlp_bias)
+        self.down_proj = nn.Linear(self.intermediate_size, self.hidden_size, bias=mlp_bias)
         self.act_fn = ACT2FN[config.hidden_act]
 
     def forward(self, x):
